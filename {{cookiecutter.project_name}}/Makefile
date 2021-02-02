@@ -1,4 +1,7 @@
 init:
+	git init
+	git add .
+	git commit -m "Initial commit"
 	cp docker/config/python.example.env docker/config/python.env
 	ln -nfs $(PWD)/.githooks/pre-push.sh .git/hooks/pre-push
 	ln -nfs $(PWD)/.githooks/pre-commit.sh .git/hooks/pre-commit
