@@ -1,12 +1,11 @@
 init:
-	git flow init
 	cp docker/config/python.example.env docker/config/python.env
 	ln -nfs $(PWD)/.githooks/pre-push.sh .git/hooks/pre-push
 	ln -nfs $(PWD)/.githooks/pre-commit.sh .git/hooks/pre-commit
 	ln -nfs $(PWD)/.githooks/bump-version.sh .git/hooks/post-flow-release-start
 	ln -nfs $(PWD)/.githooks/bump-version.sh .git/hooks/post-flow-hotfix-start
+	docker-compose up -d
 	cd frontend && npm install && npm run dev
-	docker-compose up
 
 test:
 	docker-compose run --rm python test
@@ -24,3 +23,13 @@ coverage:
 
 typecheck:
 	docker-compose run --rm python typecheck
+
+start:
+	docker-compose up -d
+	cd frontend && npm run dev
+
+stop:
+	docker-compose stop
+
+logs:
+	docker-compose logs python

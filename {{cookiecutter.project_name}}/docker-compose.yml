@@ -1,21 +1,5 @@
 version: "3.1"
 services:
-  web:
-    image: nginx:alpine
-    working_dir: /app
-    ports:
-      - "{{cookiecutter.docker_web_port}}:80"
-      - "{{cookiecutter.docker_web_ssl_port}}:443"
-    links:
-      - python
-    volumes:
-      - "./docker/files/config/nginx.conf.template:/etc/nginx/templates/default.conf.template:cached"
-      - "./docker/files/certs:/etc/nginx/certs"
-      - "./src/media:/app/media"
-      - "./src/static:/app/static"
-    environment:
-      - PYTHON_HOST=http://python
-
   python:
     image: frojd/{{cookiecutter.project_slug}}_python
     build: ./src
@@ -24,6 +8,8 @@ services:
     depends_on:
       - db
     env_file: ./docker/config/python.env
+    ports:
+      - "8081:8000"
 
   db:
     image: postgis/postgis:12-2.5-alpine
