@@ -87,7 +87,7 @@ export async function getRequest(url, params?, options?) {
     const res = await fetch(`${url}?${queryString}`, { headers });
 
     if (res.status < 200 || res.status >= 300) {
-        const error = new Error(res.statusText);
+        const error: any = new Error(res.statusText);
         error.response = res;
         throw error;
     }
@@ -112,7 +112,7 @@ export async function postRequest(url, params, options) {
     });
 
     if (res.status < 200 || res.status >= 300) {
-        const error = new Error(res.statusText);
+        const error: any = new Error(res.statusText);
         error.response = res;
         throw error;
     }

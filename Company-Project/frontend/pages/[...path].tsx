@@ -22,7 +22,7 @@ export async function getServerSideProps({ req, params, res }) {
     if (queryParams.indexOf('?') === 0) {
         queryParams = queryParams.substr(1);
     }
-    queryParams = querystring.parse(queryParams);
+    const parsedQueryParams = querystring.parse(queryParams);
 
     // Try to serve page
     try {
@@ -31,23 +31,18 @@ export async function getServerSideProps({ req, params, res }) {
             componentProps,
             redirect,
             customResponse,
-        } = await getPage(
-            path,
-            queryParams, {
-                headers: {
-                    cookie: req.headers.cookie,
-                    host,
-                },
-            }
-        );
+        } = await getPage(path, parsedQueryParams, {
+            headers: {
+                cookie: req.headers.cookie,
+                host,
+            },
+        });
 
         if (customResponse) {
             const { body, body64, contentType } = customResponse;
             res.setHeader('Content-Type', contentType);
             res.statusCode = 200;
-            res.write(
-                body64 ? Buffer.from(body64, 'base64') : body
-            );
+            res.write(body64 ? Buffer.from(body64, 'base64') : body);
             res.end();
 
             return { props: {} };
@@ -59,8 +54,8 @@ export async function getServerSideProps({ req, params, res }) {
                 redirect: {
                     destination: destination,
                     permanent: isPermanent,
-                }
-            }
+                },
+            };
         }
 
         return { props: { componentName, componentProps } };
@@ -94,8 +89,8 @@ export async function getServerSideProps({ req, params, res }) {
             redirect: {
                 destination: destination,
                 permanent: isPermanent,
-            }
-        }
+            },
+        };
     } catch (err) {
         if (err.response.status >= 500) {
             throw err;

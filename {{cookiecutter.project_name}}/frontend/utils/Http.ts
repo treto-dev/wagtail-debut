@@ -41,7 +41,7 @@ const httpGet = (url) =>
 const httpPostWithCsrfToken = (url, data) =>
     fetch(url, {
         method: 'post',
-        headers: buildHeadersWithCsrf(),
+        // headers: buildHeadersWithCsrf(),
         body: JSON.stringify(data),
         credentials: 'same-origin',
     })

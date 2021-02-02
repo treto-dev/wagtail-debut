@@ -11,17 +11,17 @@
 import i18next from 'i18next';
 
 import en from './translations/en.json';
-import sv from './translations/sv.json';
+import fr from './translations/fr.json';
 
 i18next.init({
-    languages: ['en', 'sv'],
+    languages: ['en', 'fr'],
     fallbackLng: ['en'],
     resources: {
         en: {
             translation: en,
         },
-        sv: {
-            translation: sv,
+        fr: {
+            translation: fr,
         },
     },
 });

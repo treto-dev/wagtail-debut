@@ -14,7 +14,7 @@ WAGTAIL_I18N_ENABLED = True
 WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = [
     # Any language you whish to support
     ('en', "English"),
-    ('sv', "Swedish"),
+    ('fr', "French"),
     ('de', "German"),
 ]
 ```
