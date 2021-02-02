@@ -1,9 +1,10 @@
 {
     "project_name": "Company-Project",
     "project_slug": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_') }}",
-    "domain_prod": "example.com",
+    "use_decoupled_frontend": ["no", "yes"],
     "use_grapple": ["yes", "no"],
     "use_django_pattern_library": ["yes", "no"],
+    "domain_prod": "example.com",
     "domain_stage": "stage.{{ cookiecutter.domain_prod }}",
     "ssh_prod": "devops@{{ cookiecutter.domain_prod }}",
     "ssh_stage": "devops@{{ cookiecutter.domain_stage }}",

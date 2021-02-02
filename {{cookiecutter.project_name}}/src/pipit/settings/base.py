@@ -73,7 +73,7 @@ INSTALLED_APPS = [
     "customimage",
     "customdocument",
     "main",
-    "nextjs",
+    {% if cookiecutter.use_decoupled_frontend == "yes" %}"nextjs",{% endif %}
 ]
 
 
