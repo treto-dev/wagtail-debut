@@ -1,6 +1,9 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 
 class CustomDocument extends Document {
+	public props: any;
+	public pageProps: any;
+
     static async getInitialProps(ctx) {
         let pageProps = null;
 

@@ -32,13 +32,13 @@ const WagtailUserbar = ({ html }) => {
         // make sure userbar is hidden when navigating back
         window.addEventListener('pageshow', hideUserbar, false);
 
-        function showUserbar(e) {
+        function showUserbar(e?) {
             userbar.classList.add(className);
             list.addEventListener(clickEvent, sandboxClick, false);
             window.addEventListener(clickEvent, clickOutside, false);
         }
 
-        function hideUserbar(e) {
+        function hideUserbar(e?) {
             userbar.classList.remove(className);
             list.addEventListener(clickEvent, sandboxClick, false);
             window.removeEventListener(clickEvent, clickOutside, false);

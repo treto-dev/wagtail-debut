@@ -48,7 +48,7 @@ export async function getPagePreview(contentType, token, params, options) {
     return await getRequest(`${API_URL}/v1/page_preview/`, params, options);
 }
 
-export async function getPublicViewData(slug, params, options) {
+export async function getPublicViewData(slug, params?, options?) {
     return await getRequest(
         `${NEXT_PUBLIC_API_URL}/v1/external_view_data/${slug}/`,
         params,
@@ -74,7 +74,7 @@ export async function getRedirect(path, params, options) {
     return await getRequest(`${API_URL}/v1/redirect_by_path/`, params, options);
 }
 
-export async function getRequest(url, params, options) {
+export async function getRequest(url, params?, options?) {
     params = params || {};
     params = keysToSnakeFromCamel(params);
 
