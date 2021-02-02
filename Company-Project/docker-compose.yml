@@ -10,7 +10,6 @@ services:
       - python
     volumes:
       - "./docker/files/config/nginx.conf.template:/etc/nginx/templates/default.conf.template:cached"
-      - "./docker/files/certs:/etc/nginx/certs"
       - "./src/media:/app/media"
       - "./src/static:/app/static"
     environment:
