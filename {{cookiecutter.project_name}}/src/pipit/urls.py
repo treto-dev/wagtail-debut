@@ -8,6 +8,10 @@ from wagtail.documents import urls as wagtaildocs_urls
 from wagtail.core import urls as wagtail_urls
 from wagtail.contrib.sitemaps.views import sitemap
 
+{% if cookiecutter.use_grapple == "yes" %}
+from grapple import urls as grapple_urls
+{% endif %}
+
 from main.views.page_not_found import PageNotFoundView
 from main.views.error_500 import error_500_view
 from nextjs.api import api_router
@@ -42,6 +46,21 @@ if settings.DEBUG:
         import debug_toolbar
 
         urlpatterns += [path("wt/__debug__/", include(debug_toolbar.urls))]  # type: ignore
+
+
+{% if cookiecutter.use_django_pattern_library == "yes" %}
+if apps.is_installed("pattern_library"):
+    urlpatterns += [
+        path("pattern-library/", include("pattern_library.urls")),
+    ]
+{% endif %}
+
+{% if cookiecutter.use_grapple == "yes" %}
+urlpatterns += [
+    url(r"", include(grapple_urls)),
+]
+{% endif %}
+
 
 urlpatterns += [
     path(settings.ADMIN_URL, admin.site.urls),

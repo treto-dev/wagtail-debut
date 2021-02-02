@@ -54,6 +54,18 @@ INSTALLED_APPS = [
     "wagtail_meta_preview",
     "wagtail_headless_preview",
     "rest_framework",
+
+    {% if cookiecutter.use_django_pattern_library == "yes" %}
+    # Pattern library
+    "pattern_library",
+    {% endif %}
+
+    {% if cookiecutter.use_grapple == "yes" %}
+    # Grapple
+    "grapple",
+    "graphene_django",
+    {% endif %}
+
     # Project specific apps
     "pipit",
     "sitesettings",
@@ -63,6 +75,7 @@ INSTALLED_APPS = [
     "main",
     "nextjs",
 ]
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -101,6 +114,9 @@ TEMPLATES = [
                 # Project specific
                 "pipit.context_processors.settings_context_processor",
             ],
+            {% if cookiecutter.use_django_pattern_library == "yes" %}"builtins": [
+                "pattern_library.loader_tags"
+            ],{% endif -%}
         },
     }
 ]
@@ -215,3 +231,36 @@ HEADLESS_PREVIEW_CLIENT_URLS = {
 # Sentry
 SENTRY_DSN: Optional[str] = None
 SENTRY_ENVIRONMENT: Optional[str]= None
+
+
+{% if cookiecutter.use_grapple == "yes" %}
+# Grapple Config:
+GRAPHENE = {"SCHEMA": "grapple.schema.schema"}
+GRAPPLE_APPS = {
+    "home": ""
+}
+{% endif %}
+
+{% if cookiecutter.use_django_pattern_library == "yes" %}
+# Pattern Library
+PATTERN_LIBRARY = {
+    # Groups of templates for the pattern library navigation. The keys
+    # are the group titles and the values are lists of template name prefixes that will
+    # be searched to populate the groups.
+    "SECTIONS": (
+        ("components", ["patterns/components"]),
+        ("pages", ["patterns/pages"]),
+    ),
+
+    # Configure which files to detect as templates.
+    "TEMPLATE_SUFFIX": ".html",
+
+    # Set which template components should be rendered inside of,
+    # so they may use page-level component dependencies like CSS.
+    "PATTERN_BASE_TEMPLATE_NAME": "patterns/base.html",
+
+    # Any template in BASE_TEMPLATE_NAMES or any template that extends a template in
+    # BASE_TEMPLATE_NAMES is a "page" and will be rendered as-is without being wrapped.
+    "BASE_TEMPLATE_NAMES": ["patterns/base_page.html"],
+}
+{% endif %}
