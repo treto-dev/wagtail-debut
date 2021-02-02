@@ -55,16 +55,12 @@ INSTALLED_APPS = [
     "wagtail_headless_preview",
     "rest_framework",
 
-    {% if cookiecutter.use_django_pattern_library == "yes" %}
-    # Pattern library
-    "pattern_library",
-    {% endif %}
+    {% if cookiecutter.use_django_pattern_library == "yes" %}# Pattern library
+    "pattern_library",{% endif %}
 
-    {% if cookiecutter.use_grapple == "yes" %}
-    # Grapple
+    {% if cookiecutter.use_grapple == "yes" %}# Grapple
     "grapple",
-    "graphene_django",
-    {% endif %}
+    "graphene_django",{% endif %}
 
     # Project specific apps
     "pipit",
@@ -233,16 +229,13 @@ SENTRY_DSN: Optional[str] = None
 SENTRY_ENVIRONMENT: Optional[str]= None
 
 
-{% if cookiecutter.use_grapple == "yes" %}
-# Grapple Config:
+{% if cookiecutter.use_grapple == "yes" %}# Grapple Config:
 GRAPHENE = {"SCHEMA": "grapple.schema.schema"}
 GRAPPLE_APPS = {
     "home": ""
-}
-{% endif %}
+}{% endif %}
 
-{% if cookiecutter.use_django_pattern_library == "yes" %}
-# Pattern Library
+{% if cookiecutter.use_django_pattern_library == "yes" %}# Pattern Library
 PATTERN_LIBRARY = {
     # Groups of templates for the pattern library navigation. The keys
     # are the group titles and the values are lists of template name prefixes that will
@@ -262,5 +255,4 @@ PATTERN_LIBRARY = {
     # Any template in BASE_TEMPLATE_NAMES or any template that extends a template in
     # BASE_TEMPLATE_NAMES is a "page" and will be rendered as-is without being wrapped.
     "BASE_TEMPLATE_NAMES": ["patterns/base_page.html"],
-}
-{% endif %}
+}{% endif %}
