@@ -1,0 +1,18 @@
+version: '3'
+services:
+  python:
+    image: frojd/wagtail_pipit_python
+    build: ./src
+    depends_on:
+      - db
+    env_file: ./docker/config/python.env
+
+  db:
+    image: postgis/postgis:12-2.5
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+      - POSTGRES_HOST_AUTH_METHOD=trust
