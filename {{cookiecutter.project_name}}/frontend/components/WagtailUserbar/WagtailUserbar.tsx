@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const WagtailUserbar = ({ html }) => {
     useEffect(() => {
         // This  code is copy patested from
-        // https://github.com/wagtail/wagtail/blob/master/wagtail/admin/static_src/wagtailadmin/js/userbar.js
+        // https://github.com/wagtail/wagtail/blob/master/wagtail/admin/static_wagtail/wagtailadmin/js/userbar.js
         var userbar = document.querySelector('[data-wagtail-userbar]');
         var trigger = userbar.querySelector('[data-wagtail-userbar-trigger]');
         var list = userbar.querySelector('.wagtail-userbar-items');

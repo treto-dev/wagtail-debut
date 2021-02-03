@@ -22,7 +22,7 @@ use_decoupled_frontend = "{{cookiecutter.use_decoupled_frontend}}" == "yes"
 use_circle_ci = "{{cookiecutter.use_circle_ci}}" == "yes"
 
 if not use_decoupled_frontend:
-    REMOVE_PATHS += ["frontend", "src/nextjs"]
+    REMOVE_PATHS += ["frontend", "wagtail/nextjs"]
 
 if not use_circle_ci:
     REMOVE_PATHS += [".circleci", ".ciignore"]

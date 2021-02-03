@@ -41,14 +41,14 @@ docker/files/certs/*
 !docker/files/certs/.gitkeep
 
 # Environment
-src/.env
-src/.env.local
+wagtail/.env
+wagtail/.env.local
 
 # Static folder
-src/static
-src/media
-src/pipit/static/pipit/**
-!src/pipit/static/pipit/admin-overrides.css
+wagtail/static
+wagtail/media
+wagtail/pipit/static/pipit/**
+!wagtail/pipit/static/pipit/admin-overrides.css
 
 # Pytest
 .cache

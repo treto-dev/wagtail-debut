@@ -2,7 +2,7 @@ version: '3'
 services:
   python:
     image: frojd/wagtail_pipit_python
-    build: ./src
+    build: ./wagtail
     depends_on:
       - db
     env_file: ./docker/config/python.env

@@ -6,7 +6,7 @@ Wagtail and Pipit assumes by default that all content comes in a single language
 
 2. Add `"wagtail_localize"` and `"wagtail_localize.locales"` to `INSTALLED_APPS`
 
-3. Update `src/pipit/settings/base.py` with the following:
+3. Update `wagtail/pipit/settings/base.py` with the following:
 
 ```python
 WAGTAIL_I18N_ENABLED = True
@@ -31,7 +31,7 @@ urlpatterns += i18n_patterns(
 
 This will make sure languages are served as `example.com/en/about/` and `example.com/sv/om-oss/`
 
-5. Next step is to provide the frontend with both current language for pages and any translations, open `src/main/pages/base_serializer.py` and extend the BaseSerializer like this:
+5. Next step is to provide the frontend with both current language for pages and any translations, open `wagtail/main/pages/base_serializer.py` and extend the BaseSerializer like this:
 
 ```python
 ...

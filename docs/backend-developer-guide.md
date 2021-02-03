@@ -15,7 +15,7 @@ This document also provides info on the following topics:
 
 ## Getting started
 
-The project backend, based on Wagtail and the CMS Wagtail is located in `/src`, here's an overview of its content:
+The project backend, based on Wagtail and the CMS Wagtail is located in `/wagtail`, here's an overview of its content:
 
 ```bash
 ├── customdocument              # Extends Wagtails Document model

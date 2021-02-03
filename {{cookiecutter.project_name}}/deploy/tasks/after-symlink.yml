@@ -1,9 +1,9 @@
 {% raw -%}
 - name: Create cache table
-  shell: "{{ ansistrano_shared_path }}/venv/bin/python {{ ansistrano_release_path.stdout }}/src/manage.py createcachetable"
+  shell: "{{ ansistrano_shared_path }}/venv/bin/python {{ ansistrano_release_path.stdout }}/wagtail/manage.py createcachetable"
 
 - name: Collect static
-  shell: "{{ ansistrano_shared_path }}/venv/bin/python {{ ansistrano_release_path.stdout }}/src/manage.py collectstatic --noinput"
+  shell: "{{ ansistrano_shared_path }}/venv/bin/python {{ ansistrano_release_path.stdout }}/wagtail/manage.py collectstatic --noinput"
 
 - name: Restart uWSGI
   service:

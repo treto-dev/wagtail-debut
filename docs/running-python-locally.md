@@ -20,7 +20,7 @@ If you have a existing web container, remove it `docker-compose rm web`
 Create a custom .env file for your local db instance
 
 ```
-touch src/.env.local
+touch wagtail/.env.local
 ```
 
 And supply your env configuration, you can usually just copy paste the values you would have from `/docker/config/python.env` and only replace `DATABASE_HOST`.
@@ -42,7 +42,7 @@ DATABASE_PORT=8083
 Setup virtualenv (but please note that there are many different ways of doing package management in python (pyenv, poetry etc), if you have a preffered way of doing things - do it :)
 
 ```
-cd src
+cd wagtail
 python3 -m venv venv
 source venv/bin/activate
 ```
@@ -66,7 +66,7 @@ docker-compose up db web
 And then finally start your python server
 
 ```
-cd src
+cd wagtail
 python manage.py runserver 8000
 ```
 
@@ -77,6 +77,6 @@ Now open `http://blog.acme.com.test:8081/wt/cms` in your favorite browser and yo
 Because we use a different set of configuration while connecting to the db, we keep a custom pytest config around for running python locally.
 
 ```
-cd src
+cd wagtail
 pytest -c pytest.local.ini
 ```

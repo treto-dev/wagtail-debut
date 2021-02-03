@@ -2,9 +2,9 @@ version: "3.1"
 services:
   python:
     image: frojd/{{cookiecutter.project_slug}}_python
-    build: ./src
+    build: ./wagtail
     volumes:
-      - "./src:/app"
+      - "./wagtail:/app"
     depends_on:
       - db
     env_file: ./docker/config/python.env

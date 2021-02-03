@@ -82,9 +82,9 @@ This project follows [semantic versioning](https://semver.org/).
 
 Bump version in:
 
-- src/pipit/settings/base.py `(APP_VERSION=)`
+- wagtail/pipit/settings/base.py `(APP_VERSION=)`
 - frontend/package.json
-- src/Dockerfile
+- wagtail/Dockerfile
 
 ...or just use the [bump-version](#bump-version) git hook
 

@@ -26,7 +26,7 @@ docker-compose up -d db
 echo "Waiting for database ($DB_WAIT_TIME seconds)..."
 sleep $DB_WAIT_TIME
 
-src_dir=${scripts_dir}/../src
+src_dir=${scripts_dir}/../wagtail
 
 if test -f "$src_dir/.env" || test -f "$src_dir/.env.local"
 then

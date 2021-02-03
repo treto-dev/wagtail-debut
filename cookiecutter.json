@@ -4,6 +4,7 @@
     "use_decoupled_frontend": ["no", "yes"],
     "use_grapple": ["yes", "no"],
     "use_django_pattern_library": ["yes", "no"],
+    "use_gitflow": ["no", "yes"],
     "domain_prod": "example.com",
     "domain_stage": "stage.{{ cookiecutter.domain_prod }}",
     "ssh_prod": "devops@{{ cookiecutter.domain_prod }}",
