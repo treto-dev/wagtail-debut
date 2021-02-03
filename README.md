@@ -1,20 +1,32 @@
 # Wagtail Début
 
-Wagtail Début is a [Wagtail CMS](https://wagtail.io/) boilerplate which aims to provide an easy and modern developer workflow with a React-rendered frontend.
+Wagtail Début is a [Wagtail CMS](https://wagtail.io/) boilerplate which aims to provide an easy and modern developer workflow with a React-rendered frontend.  
+It is based on [Wagtail Pipit](https://github.com/Frojd/Wagtail-Pipit) but is less opiniated, and let you choose between a standard Wagtail app or a headless app.  
+It also provides the choice between a standard DRF based headless wagtail, or a [Wagtail Grapple](https://github.com/GrappleGQL/wagtail-grapple) bashed headless wagtail.
 
 ## Features
 
-- Hybrid static and server rendered React using [Next.js](https://nextjs.org/)
 - Page scaffolding
 - [12-Factor App](https://12factor.net/) compliant
 - Docker development environment
+- Data-sync between environments
+
+### Optionnal features
+
+#### Decoupled frontend
+- Hybrid static and server rendered React using [Next.js](https://nextjs.org/)
+- [Storybook](https://storybook.js.org/) for rapid React component development
+- DRF-based or [Wagtail Grapple](https://github.com/GrappleGQL/wagtail-grapple) based
+
+#### Standard django frontend
+- [Django Pattern Library](https://github.com/torchbox/django-pattern-library) for rapid Django component development
+
+#### Deployment / CI/CD
 - Deploy scripts via [Ansistrano](https://github.com/ansistrano)
 - Orchestration using [Ansible](https://github.com/ansible/ansible)
-- Local SSL for development
 - Error reporting with [Sentry](https://sentry.io/)
 - CI integration via [Circle CI](https://circleci.com/)
-- Data-sync between environments
-- [Storybook](https://storybook.js.org/) for rapid component development
+> - Local SSL for development
 
 ## Installation
 
