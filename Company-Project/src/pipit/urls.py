@@ -8,6 +8,8 @@ from wagtail.documents import urls as wagtaildocs_urls
 from wagtail.core import urls as wagtail_urls
 from wagtail.contrib.sitemaps.views import sitemap
 
+from grapple import urls as grapple_urls
+
 from main.views.page_not_found import PageNotFoundView
 from main.views.error_500 import error_500_view
 from nextjs.api import api_router
@@ -42,6 +44,17 @@ if settings.DEBUG:
         import debug_toolbar
 
         urlpatterns += [path("wt/__debug__/", include(debug_toolbar.urls))]  # type: ignore
+
+
+if apps.is_installed("pattern_library"):
+    urlpatterns += [
+        path("pattern-library/", include("pattern_library.urls")),
+    ]
+
+urlpatterns += [
+    url(r"", include(grapple_urls)),
+]
+
 
 urlpatterns += [
     path(settings.ADMIN_URL, admin.site.urls),
