@@ -1,5 +1,5 @@
 import React from 'react';
-import s from './NotFoundPage.module.css';
+import s from 'containers/NotFoundPage/NotFoundPage.module.css';
 
 const NotFoundPage = () => {
     return <div className={s.Container}>NotFoundPage</div>;

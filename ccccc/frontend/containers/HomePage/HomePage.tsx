@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { basePageWrap } from '../BasePage';
-import Hero from '../../components/Hero';
-import s from './HomePage.module.css';
+import { basePageWrap } from 'containers/BasePage';
+import Hero from 'components/Hero';
+import s from 'containers/HomePage/HomePage.module.css';
 
 const HomePage = ({ title }) => {
     return (

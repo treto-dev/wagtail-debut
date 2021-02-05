@@ -54,13 +54,10 @@ INSTALLED_APPS = [
     "wagtail_meta_preview",
     "wagtail_headless_preview",
     "rest_framework",
-
-    
-
+    "corsheaders",
     # Grapple
     "grapple",
     "graphene_django",
-
     # Project specific apps
     "pipit",
     "sitesettings",
@@ -73,6 +70,7 @@ INSTALLED_APPS = [
 
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -84,7 +82,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "pipit.urls"
-APPEND_SLASH = True
+# APPEND_SLASH = True
 
 TEMPLATES = [
     {
@@ -109,7 +107,7 @@ TEMPLATES = [
                 # Project specific
                 "pipit.context_processors.settings_context_processor",
             ],
-            },
+        },
     }
 ]
 
@@ -222,13 +220,9 @@ HEADLESS_PREVIEW_CLIENT_URLS = {
 
 # Sentry
 SENTRY_DSN: Optional[str] = None
-SENTRY_ENVIRONMENT: Optional[str]= None
+SENTRY_ENVIRONMENT: Optional[str] = None
 
 
 # Grapple Config:
 GRAPHENE = {"SCHEMA": "grapple.schema.schema"}
-GRAPPLE_APPS = {
-    "main": ""
-}
-
-
+GRAPPLE_APPS = {"main": ""}

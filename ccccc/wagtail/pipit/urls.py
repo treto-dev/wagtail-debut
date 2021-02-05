@@ -47,12 +47,7 @@ if settings.DEBUG:
         urlpatterns += [path("wt/__debug__/", include(debug_toolbar.urls))]  # type: ignore
 
 
-
-
-urlpatterns += [
-    path("", include(grapple_urls)),
-]
-
+urlpatterns += [path("", include(grapple_urls))]  # type: ignore
 
 urlpatterns += [
     path(settings.ADMIN_URL, admin.site.urls),

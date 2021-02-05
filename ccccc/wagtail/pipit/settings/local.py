@@ -14,6 +14,7 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 AUTH_PASSWORD_VALIDATORS = []
 
 INTERNAL_IPS = get_env("INTERNAL_IPS", default="").split(",")
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Add django debug toolbar when using local version
 if get_env_bool("DEBUG_TOOLBAR", default=True):

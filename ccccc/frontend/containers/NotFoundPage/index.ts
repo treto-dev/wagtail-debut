@@ -1,3 +1,3 @@
-import NotFoundPage from './NotFoundPage';
+import NotFoundPage from 'containers/NotFoundPage';
 
 export default NotFoundPage;
