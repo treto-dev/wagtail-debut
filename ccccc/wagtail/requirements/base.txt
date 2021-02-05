@@ -1,4 +1,4 @@
-Django==3.1.5
+Django>=2.2,<2.3
 boto3==1.16.56
 django-storages==1.11.1
 psycopg2==2.8.6
@@ -9,4 +9,5 @@ wagtail-meta-preview
 wagtailfontawesome==1.2.1
 wagtail_headless_preview==0.1.4
 git+git://github.com/fabienheureux/wagtail-grapple.git@dc7436f36bd9d2a24c6d8032d355867dfe880521#egg=wagtail-grapple
+channels==1.1.8
 

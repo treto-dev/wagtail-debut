@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     # Grapple
     "grapple",
     "graphene_django",
+    "channels",
     # Project specific apps
     "pipit",
     "sitesettings",
@@ -215,8 +216,9 @@ ADMIN_URL = "wt/admin/"
 
 # NextJS
 HEADLESS_PREVIEW_CLIENT_URLS = {
-    "default": "/api/preview/",
+    "default": "http://localhost:3000/preview/",
 }
+HEADLESS_PREVIEW_LIVE = True
 
 # Sentry
 SENTRY_DSN: Optional[str] = None
@@ -226,3 +228,11 @@ SENTRY_ENVIRONMENT: Optional[str] = None
 # Grapple Config:
 GRAPHENE = {"SCHEMA": "grapple.schema.schema"}
 GRAPPLE_APPS = {"main": ""}
+ASGI_APPLICATION = "asgi.channel_layer"
+CHANNELS_WS_PROTOCOLS = ["graphql-ws"]
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "asgiref.inmemory.ChannelLayer",
+        "ROUTING": "grapple.urls.channel_routing",
+    }
+}
