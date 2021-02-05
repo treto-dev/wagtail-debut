@@ -82,7 +82,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "pipit.urls"
-# APPEND_SLASH = True
+APPEND_SLASH = True
 
 TEMPLATES = [
     {

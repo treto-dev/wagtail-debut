@@ -8,13 +8,14 @@ export const PAGE_QUERY = gql`
         page(urlPath: $urlPath) {
             pageType
             id
+            title
         }
     }
 `;
 
 const isProd = process.env.NODE_ENV === 'production';
 
-export default function CatchAllPage({ componentName, componentProps, path }) {
+export default function CatchAllPage({ componentName, path }) {
     // Basic
     const { loading, error, data } = useQuery(PAGE_QUERY, {
         variables: {
@@ -28,7 +29,7 @@ export default function CatchAllPage({ componentName, componentProps, path }) {
         const Component = dynamic(
             () => import(`containers/${data.page.pageType}`)
         );
-        return <Component {...componentProps} />;
+        return <Component {...data.page} />;
     }
 
     return <h1>Component {componentName} not found</h1>;

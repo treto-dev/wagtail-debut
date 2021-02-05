@@ -23,7 +23,7 @@ CACHES = {
         "TIMEOUT": 600,
         "OPTIONS": {
             "MAX_ENTRIES": 1000,
-        }
+        },
     },
 }
 

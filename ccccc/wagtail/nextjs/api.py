@@ -139,14 +139,16 @@ class PageByPathAPIViewSet(BaseAPIViewSet):
         for restriction in page.get_view_restrictions():
             if not restriction.accept_request(request):
                 if restriction.restriction_type == PageViewRestriction.PASSWORD:
-                    return Response({
-                        "component_name": "PasswordProtectedPage",
-                        "component_props": {
-                            "restriction_id": restriction.id,
-                            "page_id": page.id,
-                            "csrf_token": csrf_middleware.get_token(request),
-                        },
-                    })
+                    return Response(
+                        {
+                            "component_name": "PasswordProtectedPage",
+                            "component_props": {
+                                "restriction_id": restriction.id,
+                                "page_id": page.id,
+                                "csrf_token": csrf_middleware.get_token(request),
+                            },
+                        }
+                    )
 
                 elif restriction.restriction_type in [
                     PageViewRestriction.LOGIN,
@@ -154,12 +156,14 @@ class PageByPathAPIViewSet(BaseAPIViewSet):
                 ]:
                     site = Site.find_for_request(self.request)
                     resp = require_wagtail_login(next=page.relative_url(site, request))
-                    return Response({
-                        "redirect": {
-                            "destination": resp.url,
-                            "is_permanent": False,
+                    return Response(
+                        {
+                            "redirect": {
+                                "destination": resp.url,
+                                "is_permanent": False,
+                            }
                         }
-                    })
+                    )
 
         return page.serve(request, *args, **kwargs)
 
@@ -179,14 +183,13 @@ class PageByPathAPIViewSet(BaseAPIViewSet):
 
         path_components = [component for component in path.split("/") if component]
 
-        if getattr(settings, 'WAGTAIL_I18N_ENABLED', False):
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
             language_from_path = translation.get_language_from_path(path)
 
             if language_from_path:
                 path_components.remove(language_from_path)
                 translated_root_page = (
-                    root_page
-                    .get_translations(inclusive=True)
+                    root_page.get_translations(inclusive=True)
                     .filter(locale__language_code=language_from_path)
                     .first()
                 )
@@ -195,9 +198,7 @@ class PageByPathAPIViewSet(BaseAPIViewSet):
 
                 root_page = translated_root_page
 
-        page, args, kwargs = root_page.specific.route(
-            self.request, path_components
-        )
+        page, args, kwargs = root_page.specific.route(self.request, path_components)
         return page, args, kwargs
 
     @classmethod

@@ -38,12 +38,14 @@ class RedirectUpMixin:
 
     def serve(self, request, *args, **kwargs):
         parent = self.get_parent()
-        return JsonResponse({
-            "redirect": {
-                "destination": parent.url,
-                "is_permanent": False,
+        return JsonResponse(
+            {
+                "redirect": {
+                    "destination": parent.url,
+                    "is_permanent": False,
+                }
             }
-        })
+        )
 
 
 class SeoMixin(Page):
@@ -299,7 +301,8 @@ class ReactViewMixin(object):
     def to_dict(self, context: Optional[Dict]) -> Dict[str, Any]:
         serializer_cls = self.get_serializer_class()
         serializer = serializer_cls(
-            self.get_component_props(), context=context,
+            self.get_component_props(),
+            context=context,
         )
 
         return serializer.data
