@@ -2,6 +2,7 @@
 Write local settings here, or override base settings
 """
 from pipit.settings.base import *  # NOQA
+from django.apps import apps
 
 
 VS_CODE_REMOTE_DEBUG = get_env_bool("VS_CODE_REMOTE_DEBUG", default=False)
@@ -25,6 +26,12 @@ if get_env_bool("DEBUG_TOOLBAR", default=True):
 
     DEBUG_TOOLBAR_CONFIG = {
         "SHOW_TOOLBAR_CALLBACK": "pipit.settings.local.show_toolbar"
+    }
+
+
+if apps.is_installed("wagtail_headless_preview"):
+    HEADLESS_PREVIEW_CLIENT_URLS = {
+        "default": "http://localhost:3000/api/preview/",
     }
 
 # Allow django-debug-bar under docker

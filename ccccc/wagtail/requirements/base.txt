@@ -9,6 +9,6 @@ wagtail-meta-preview
 wagtailfontawesome==1.2.1
 django-cors-headers==3.4.0
 wagtail_headless_preview==0.1.4
-git+git://github.com/fabienheureux/wagtail-grapple.git@dc7436f36bd9d2a24c6d8032d355867dfe880521#egg=wagtail-grapple
+git+git://github.com/fabienheureux/wagtail-grapple.git@dc7436f36bd9d2a24c6d8032d355867dfe880521#egg=wagtail-grapple[channels]
 channels==1.1.8
 
