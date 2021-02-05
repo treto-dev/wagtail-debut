@@ -3,7 +3,7 @@ init:
 	cp docker/config/python.example.env docker/config/python.env
 	ln -nfs $(PWD)/.githooks/pre-push.sh .git/hooks/pre-push
 	ln -nfs $(PWD)/.githooks/pre-commit.sh .git/hooks/pre-commit
-	
+
 	make start
 	make fixcode
 	git add .
@@ -35,3 +35,15 @@ stop:
 
 logs:
 	docker-compose logs -f python
+
+shell:
+	docker-compose exec python /bin/bash
+
+makemigrations:
+	docker-compose exec python ./manage.py makemigrations
+
+migrate:
+	docker-compose exec python ./manage.py migrate
+
+restart:
+	docker-compose restart

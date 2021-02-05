@@ -36,3 +36,18 @@ stop:
 
 logs:
 	docker-compose logs -f python
+
+logs:
+	docker-compose logs -f python
+
+shell:
+	docker-compose exec python /bin/bash
+
+makemigrations:
+	docker-compose exec python ./manage.py makemigrations
+
+migrate:
+	docker-compose exec python ./manage.py makemigrations
+
+restart:
+	docker-compose restart
