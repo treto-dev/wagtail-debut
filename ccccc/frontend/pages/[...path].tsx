@@ -22,9 +22,11 @@ export default function CatchAllPage({ componentName, path }) {
             urlPath: path,
         },
     });
+
     if (loading) {
         return <>loading</>;
     }
+
     if (data?.page?.pageType) {
         const Component = dynamic(
             () => import(`containers/${data.page.pageType}`)

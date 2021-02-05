@@ -216,7 +216,7 @@ ADMIN_URL = "wt/admin/"
 
 # NextJS
 HEADLESS_PREVIEW_CLIENT_URLS = {
-    "default": "http://localhost:3000/preview/",
+    "default": "http://localhost:3000/api/preview/",
 }
 HEADLESS_PREVIEW_LIVE = True
 
