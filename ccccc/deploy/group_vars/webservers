@@ -1,8 +1,0 @@
----
-python_version: python3
-ansistrano_deploy_to: /mnt/persist/www/ccccc
-database_name: ccccc
-database_user: ccccc
-project_slug: ccccc
-domain_stage: stage.example.com
-domain_prod: example.com
