@@ -8,6 +8,8 @@ export const PAGE_QUERY = gql`
             pageType
             id
             title
+            seoTitle
+            searchDescription
         }
     }
 `;
@@ -30,7 +32,23 @@ export default function CatchAllPage({ componentName, path }) {
         const Component = dynamic(
             () => import(`containers/${data.page.pageType}`)
         );
-        return <Component {...data.page} />;
+        /**
+         * FIXME: The seo props below is mainly used to provide backward compatibility with
+         * Wagtail-Pipit.
+         *
+         * Dropping default Wagtail-Pipit support would require renaming the props used in
+         * containers/BasePage/BasePage.tsx.
+         */
+        return (
+            <Component
+                {...data.page}
+                seo={{
+                    seoHtmlTitle: data.page.seoTitle,
+                    seoMetaDescription: data.page.searchDescription,
+                    seoOgDescription: data.page.searchDescription,
+                }}
+            />
+        );
     }
 
     return <h1>Component {componentName} not found</h1>;
