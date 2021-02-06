@@ -60,12 +60,13 @@ INSTALLED_APPS = [
 
     {% if cookiecutter.use_grapple == "yes" %}# Grapple
     "grapple",
-    "graphene_django",{% endif %}
+    "graphene_django",
+    "channels",{% endif %}
 
     # Project specific apps
     "pipit",
     "sitesettings",
-    "customuser",
+    # "customuser",
     "customimage",
     "customdocument",
     "main",
@@ -164,7 +165,7 @@ LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
 DEFAULT_FROM_EMAIL = get_env("DEFAULT_FROM_EMAIL", default="noreply@example.com")
 
 # Auth
-AUTH_USER_MODEL = "customuser.User"
+# AUTH_USER_MODEL = "customuser.User"
 
 # Wagtail
 WAGTAIL_SITE_NAME = "{{ cookiecutter.project_name }}"
@@ -233,6 +234,14 @@ SENTRY_ENVIRONMENT: Optional[str]= None
 GRAPHENE = {"SCHEMA": "grapple.schema.schema"}
 GRAPPLE_APPS = {
     "main": ""
+}
+ASGI_APPLICATION = "asgi.channel_layer"
+CHANNELS_WS_PROTOCOLS = ["graphql-ws"]
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "asgiref.inmemory.ChannelLayer",
+        "ROUTING": "grapple.urls.channel_routing",
+    }
 }{% endif %}
 
 {% if cookiecutter.use_django_pattern_library == "yes" %}# Pattern Library

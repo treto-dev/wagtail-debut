@@ -1,0 +1,24 @@
+version: "3.1"
+services:
+  python:
+    image: frojd/with_grapple_python
+    build: ./wagtail
+    volumes:
+      - "./wagtail:/app"
+    depends_on:
+      - db
+    env_file: ./docker/config/python.env
+    ports:
+      - "8081:8000"
+
+  db:
+    image: postgis/postgis:12-2.5-alpine
+    ports:
+      - "8083:5432"
+    volumes:
+      - "./docker/files/db-dumps/:/docker-entrypoint-initdb.d/"
+      - "./docker/files/shared:/shared:rw"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres

@@ -1,0 +1,8 @@
+---
+python_version: python3
+ansistrano_deploy_to: /mnt/persist/www/with_grapple
+database_name: with_grapple
+database_user: with_grapple
+project_slug: with_grapple
+domain_stage: stage.example.com
+domain_prod: example.com

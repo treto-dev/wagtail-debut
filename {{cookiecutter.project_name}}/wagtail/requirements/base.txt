@@ -1,4 +1,5 @@
-Django==3.1.5
+{% if cookiecutter.use_grapple == "yes" %}Django>=2.2,<2.3
+{% else %}Django==3.1.5{% endif %}
 boto3==1.16.56
 django-storages==1.11.1
 psycopg2==2.8.6
@@ -8,5 +9,7 @@ wagtail==2.11.3
 wagtail-meta-preview
 wagtailfontawesome==1.2.1
 wagtail_headless_preview==0.1.4
-{% if cookiecutter.use_grapple == "yes" %}git+git://github.com/fabienheureux/wagtail-grapple.git@dc7436f36bd9d2a24c6d8032d355867dfe880521#egg=wagtail-grapple{% endif %}
+{% if cookiecutter.use_grapple == "yes" %}git+git://github.com/fabienheureux/wagtail-grapple.git@dc7436f36bd9d2a24c6d8032d355867dfe880521#egg=wagtail-grapple[channels]
+django-cors-headers==3.4.0
+channels==1.1.8{% endif %}
 {% if cookiecutter.use_django_pattern_library == "yes" %}django-pattern-library==0.3.0{% endif %}

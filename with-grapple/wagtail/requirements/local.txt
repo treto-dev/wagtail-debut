@@ -1,0 +1,10 @@
+# Extend base.txt
+-r test.txt
+
+# Add local extra requirements here (django-debug etc)
+black
+django-debug-toolbar
+isort
+pipdeptree
+ptvsd
+django-stubs==1.7.0

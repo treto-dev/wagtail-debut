@@ -1,0 +1,8 @@
+---
+python_version: python3
+ansistrano_deploy_to: /mnt/persist/www/with_wagtail_api
+database_name: with_wagtail_api
+database_user: with_wagtail_api
+project_slug: with_wagtail_api
+domain_stage: stage.example.com
+domain_prod: example.com

@@ -5,6 +5,7 @@ init:
 	ln -nfs $(PWD)/.githooks/pre-commit.sh .git/hooks/pre-commit
 	{% if cookiecutter.use_gitflow == "yes" %}ln -nfs $(PWD)/.githooks/bump-version.sh .git/hooks/post-flow-release-start
 	ln -nfs $(PWD)/.githooks/bump-version.sh .git/hooks/post-flow-hotfix-start{% endif %}
+	make build
 	make start
 	make fixcode
 	git add .
@@ -36,3 +37,18 @@ stop:
 
 logs:
 	docker-compose logs -f python
+
+shell:
+	docker-compose exec python /bin/bash
+
+makemigrations:
+	docker-compose exec python ./manage.py makemigrations
+
+migrate:
+	docker-compose exec python ./manage.py migrate
+
+build:
+	docker-compose build
+
+restart:
+	docker-compose restart
