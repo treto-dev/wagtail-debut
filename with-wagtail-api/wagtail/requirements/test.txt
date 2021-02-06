@@ -1,0 +1,8 @@
+# Extend base.txt
+-r base.txt
+
+# Add extra test requirements here (such as factory-boy)
+pytest-django==4.1.0
+coverage
+pytest-env
+wagtail-factories==2.0.1
