@@ -37,11 +37,10 @@ if not use_decoupled_frontend:
     TO_REMOVE += ["frontend", "wagtail/nextjs"]
 else:
     if use_grapple:
-        rename("frontend/pages/_app.grapple.tsx", "frontend/pages/_app.tsx")
         for file in GRAPPLE_FILES:
             TO_RENAME.append((file, file.replace(".grapple", "")))
     else:
-        TO_REMOVE += []
+        TO_REMOVE += GRAPPLE_FILES
 
 if not use_circle_ci:
     TO_REMOVE += [".circleci", ".ciignore"]

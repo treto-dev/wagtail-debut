@@ -33,6 +33,10 @@ if get_env_bool("DEBUG_TOOLBAR", default=True):
     "default": "http://localhost:3000/api/preview/",
 }{% endif %}
 
+{% if cookiecutter.use_decoupled_frontend%}INSTALLED_APPS += ["corsheaders"]
+MIDDLEWARE = ["corsheaders.middleware.CorsMiddleware"] + MIDDLEWARE
+CORS_ORIGIN_ALLOW_ALL = True{% endif %}
+
 # Allow django-debug-bar under docker
 def show_toolbar(request):
     return True
