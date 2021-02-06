@@ -1,9 +1,9 @@
 {
     "project_name": "Company-Project",
     "project_slug": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_') }}",
-    "use_decoupled_frontend": ["no", "yes"],
+    "use_decoupled_frontend": ["yes", "no"],
     "use_grapple": ["yes", "no"],
-    "use_django_pattern_library": ["yes", "no"],
+    "use_django_pattern_library": ["no", "yes"],
     "use_gitflow": ["no", "yes"],
     "domain_prod": "example.com",
     "domain_stage": "stage.{{ cookiecutter.domain_prod }}",
