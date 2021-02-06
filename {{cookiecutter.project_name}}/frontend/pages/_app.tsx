@@ -1,8 +1,6 @@
 import * as Sentry from '@sentry/node';
-import { ApolloProvider } from '@apollo/client';
 import { RewriteFrames } from '@sentry/integrations';
 import getConfig from 'next/config';
-import { useApollo } from 'lib/graphql/apolloClient';
 import '../index.css';
 
 if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
@@ -26,12 +24,7 @@ if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
 }
 
 function MyApp({ Component, pageProps, err }) {
-    const apolloClient = useApollo(pageProps);
-    return (
-        <ApolloProvider client={apolloClient}>
-            <Component {...pageProps} err={err} />
-        </ApolloProvider>
-    );
+    return <Component {...pageProps} err={err} />;
 }
 
 export default MyApp;

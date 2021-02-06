@@ -1,46 +1,7 @@
-import { gql, useQuery } from '@apollo/client';
-import dynamic from 'next/dynamic';
-
-export const PAGE_QUERY = gql`
-    query page($contentType: String!, $token: String!) {
-        page(contentType: $contentType, token: $token) {
-            pageType
-            id
-            title
-        }
-    }
-`;
+import { getPagePreview } from 'lib/api/wagtail';
+export { default } from 'pages/[...path]';
 
 const isProd = process.env.NODE_ENV === 'production';
-
-export default function CatchAllPreviewPage({
-    componentName,
-    contentType,
-    token,
-}) {
-    // Basic
-    const { loading, error, data } = useQuery(PAGE_QUERY, {
-        variables: {
-            token,
-            contentType,
-        },
-    });
-
-    if (loading) {
-        return <>Loading</>;
-    }
-
-    console.log(error, data, token, contentType);
-
-    if (data?.page?.pageType) {
-        const Component = dynamic(
-            () => import(`containers/${data.page.pageType}`)
-        );
-        return <Component {...data.page} />;
-    }
-
-    return <h1>Component {componentName} not found</h1>;
-}
 
 // For SSR
 export async function getServerSideProps({ req, preview, previewData }) {
@@ -50,5 +11,41 @@ export async function getServerSideProps({ req, preview, previewData }) {
     }
 
     const { contentType, token, host } = previewData;
-    return { props: { contentType, token, host } };
+
+    // TODO: Add proper token verification and error message
+    try {
+        const pagePreviewData = await getPagePreview(contentType, token, {}, {
+            headers: {
+                cookie: req.headers.cookie,
+                host: host || req.headers.host,
+            },
+        });
+        return {
+            props: pagePreviewData,
+        };
+    } catch (err) {
+        if (!isProd && err.response.status >= 500) {
+            const html = await err.response.text();
+            return {
+                props: {
+                    componentName: 'PureHtmlPage',
+                    componentProps: { html },
+                },
+            };
+        }
+
+        throw err;
+    }
 }
+
+// For SSG (will disable route)
+/*
+export async function getStaticProps({ params, preview, previewData }) {
+    return {
+        props: {
+            componentName: '',
+            componentProps: {},
+        }
+    }
+}
+*/

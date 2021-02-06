@@ -29,10 +29,9 @@ if get_env_bool("DEBUG_TOOLBAR", default=True):
     }
 
 
-if apps.is_installed("wagtail_headless_preview"):
-    HEADLESS_PREVIEW_CLIENT_URLS = {
-        "default": "http://localhost:3000/api/preview/",
-    }
+{% if cookiecutter.use_grapple %}HEADLESS_PREVIEW_CLIENT_URLS = {
+    "default": "http://localhost:3000/api/preview/",
+}{% endif %}
 
 # Allow django-debug-bar under docker
 def show_toolbar(request):

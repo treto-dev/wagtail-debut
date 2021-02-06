@@ -5,6 +5,7 @@ init:
 	ln -nfs $(PWD)/.githooks/pre-commit.sh .git/hooks/pre-commit
 	{% if cookiecutter.use_gitflow == "yes" %}ln -nfs $(PWD)/.githooks/bump-version.sh .git/hooks/post-flow-release-start
 	ln -nfs $(PWD)/.githooks/bump-version.sh .git/hooks/post-flow-hotfix-start{% endif %}
+	make build
 	make start
 	make fixcode
 	git add .
