@@ -1,4 +1,4 @@
-import { getPagePreview } from '../../api/wagtail';
+import { getPagePreview } from 'lib/api/wagtail';
 
 export default async (req, res) => {
     const { content_type: contentType, token, host } = req.query;

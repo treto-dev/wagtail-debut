@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getViewData, getPublicViewData } from '../api/wagtail';
+import { getViewData, getPublicViewData } from 'lib/api/wagtail';
 import LazyContainers from '../containers/LazyContainers';
 
 export default function DynamicNotFoundPage() {

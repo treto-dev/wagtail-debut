@@ -1,10 +1,8 @@
-import querystring from 'querystring';
-import { getPage, getRedirect, getAllPages } from 'lib/api/wagtail';
 import { gql, useQuery } from '@apollo/client';
 import dynamic from 'next/dynamic';
 
-export const PAGE_SUBSCRIPTION = gql`
-    subscription page($contentType: String!, $token: String!) {
+export const PAGE_QUERY = gql`
+    query page($contentType: String!, $token: String!) {
         page(contentType: $contentType, token: $token) {
             pageType
             id
@@ -21,7 +19,7 @@ export default function CatchAllPreviewPage({
     token,
 }) {
     // Basic
-    const { loading, error, data } = useSubscription(PAGE_SUBSCRIPTION, {
+    const { loading, error, data } = useQuery(PAGE_QUERY, {
         variables: {
             token,
             contentType,
@@ -29,8 +27,10 @@ export default function CatchAllPreviewPage({
     });
 
     if (loading) {
-        return <>loading</>;
+        return <>Loading</>;
     }
+
+    console.log(error, data, token, contentType);
 
     if (data?.page?.pageType) {
         const Component = dynamic(
@@ -50,4 +50,5 @@ export async function getServerSideProps({ req, preview, previewData }) {
     }
 
     const { contentType, token, host } = previewData;
+    return { props: { contentType, token, host } };
 }

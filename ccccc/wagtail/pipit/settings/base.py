@@ -62,7 +62,7 @@ INSTALLED_APPS = [
     # Project specific apps
     "pipit",
     "sitesettings",
-    # "customuser",
+    "customuser",
     "customimage",
     "customdocument",
     "main",
@@ -159,7 +159,7 @@ LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
 DEFAULT_FROM_EMAIL = get_env("DEFAULT_FROM_EMAIL", default="noreply@example.com")
 
 # Auth
-# AUTH_USER_MODEL = "customuser.User"
+AUTH_USER_MODEL = "customuser.User"
 
 # Wagtail
 WAGTAIL_SITE_NAME = "ccccc"

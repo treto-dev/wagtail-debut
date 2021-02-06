@@ -1,5 +1,4 @@
 import querystring from 'querystring';
-import { getPage, getRedirect, getAllPages } from 'lib/api/wagtail';
 import { gql, useQuery } from '@apollo/client';
 import dynamic from 'next/dynamic';
 

@@ -4,6 +4,7 @@ init:
 	ln -nfs $(PWD)/.githooks/pre-push.sh .git/hooks/pre-push
 	ln -nfs $(PWD)/.githooks/pre-commit.sh .git/hooks/pre-commit
 
+	make build
 	make start
 	make fixcode
 	git add .
@@ -44,6 +45,9 @@ makemigrations:
 
 migrate:
 	docker-compose exec python ./manage.py migrate
+
+build:
+	docker-compose build
 
 restart:
 	docker-compose restart
