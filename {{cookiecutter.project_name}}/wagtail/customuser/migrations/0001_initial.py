@@ -11,7 +11,8 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('auth', '0012_alter_user_first_name_max_length'),
+        {% if cookiecutter.use_grapple == "yes" %}('auth', '0011_update_proxy_permissions'),
+        {% else %}('auth', '0012_alter_user_first_name_max_length'),{% endif %}
     ]
 
     operations = [
