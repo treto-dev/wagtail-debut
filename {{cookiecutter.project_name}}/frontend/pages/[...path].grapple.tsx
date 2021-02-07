@@ -15,6 +15,15 @@ export const PAGE_QUERY = gql`
     }
 `;
 
+const ALL_PAGES_QUERY = gql`
+    query allPages {
+        pages {
+            id
+            urlPath
+        }
+    }
+`;
+
 const isProd = process.env.NODE_ENV === 'production';
 
 export default function CatchAllPage({ componentName, data, loading, error }) {
@@ -31,7 +40,7 @@ export default function CatchAllPage({ componentName, data, loading, error }) {
             () => import(`containers/${data.page.pageType}`)
         );
         /**
-         * FIXME: The seo props below is mainly used to provide backward compatibility with
+         * FIXME: The seo props below are mainly used to provide backward compatibility with
          * Wagtail-Pipit.
          *
          * Dropping default Wagtail-Pipit support would require renaming the props used in
@@ -52,17 +61,25 @@ export default function CatchAllPage({ componentName, data, loading, error }) {
     return <h1>Component {componentName} not found</h1>;
 }
 
-export async function getServerSideProps({ req, params, res }) {
+export async function getStaticPaths() {
+    const apolloClient = initializeApollo();
+
+    const { data } = await apolloClient.query({
+        query: ALL_PAGES_QUERY,
+        variables: {
+            urlPath: path,
+        },
+    });
+    return {
+        paths: data.pages.map(({ id, urlPath }) => ({
+            params: { id, urlPath },
+        })),
+        fallback: true,
+    };
+}
+
+export async function getStaticProps({ params }) {
     const path = params?.path.join('/') || '/';
-
-    // TODO: Reuse or remove code below
-    const { host } = req.headers;
-    let queryParams = new URL(req.url, `https://${host}`).search;
-    if (queryParams.indexOf('?') === 0) {
-        queryParams = queryParams.substr(1);
-    }
-
-    const parsedQueryParams = querystring.parse(queryParams);
 
     const apolloClient = initializeApollo();
 
@@ -73,7 +90,10 @@ export async function getServerSideProps({ req, params, res }) {
         },
     });
 
-    return addApolloState(apolloClient, {
-        props,
-    });
+    return {
+        ...addApolloState(apolloClient, {
+            props,
+        }),
+        revalidate: 1,
+    };
 }
