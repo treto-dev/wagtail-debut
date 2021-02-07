@@ -11,7 +11,7 @@ GRAPPLE_FILES = [
     "frontend/pages/[...path].grapple.tsx",
     "frontend/pages/_app.grapple.tsx",
     "frontend/pages/_preview.grapple.tsx",
-    "frontend/pages/index.grapple.tsx",
+    "frontend/pages/index.grapple.ts",
 ]
 
 print(os.getcwd())  # prints /absolute/path/to/{{cookiecutter.project_slug}}
