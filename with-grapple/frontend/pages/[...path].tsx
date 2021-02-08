@@ -1,130 +1,98 @@
-import querystring from 'querystring';
-import { gql, useQuery } from '@apollo/client';
-import dynamic from 'next/dynamic';
+import querystring from "querystring";
+import { gql, useQuery } from "@apollo/client";
+import { addApolloState, initializeApollo } from "lib/graphql/apolloClient";
+import dynamic from "next/dynamic";
 
 export const PAGE_QUERY = gql`
-    query page($urlPath: String!) {
-        page(urlPath: $urlPath) {
-            pageType
-            id
-            title
-            seoTitle
-            searchDescription
-        }
+  query page($urlPath: String!) {
+    page(urlPath: $urlPath) {
+      pageType
+      id
+      title
+      seoTitle
+      searchDescription
     }
+  }
 `;
 
-const isProd = process.env.NODE_ENV === 'production';
+const ALL_PAGES_QUERY = gql`
+  query allPages {
+    pages {
+      id
+      urlPath
+    }
+  }
+`;
 
-export default function CatchAllPage({ componentName, path }) {
-    // Basic
-    const { loading, error, data } = useQuery(PAGE_QUERY, {
-        variables: {
-            urlPath: path,
+const isProd = process.env.NODE_ENV === "production";
+
+export default function CatchAllPage({ componentName, data, loading, error }) {
+  if (loading) {
+    return <>Loading</>;
+  }
+
+  if (error) {
+    console.error(error);
+  }
+
+  if (data?.page?.pageType) {
+    const Component = dynamic(() => import(`containers/${data.page.pageType}`));
+    /**
+     * FIXME: The seo props below are mainly used to provide backward compatibility with
+     * Wagtail-Pipit.
+     *
+     * Dropping default Wagtail-Pipit support would require renaming the props used in
+     * containers/BasePage/BasePage.tsx.
+     */
+    return (
+      <Component
+        {...data.page}
+        seo={{
+          seoHtmlTitle: data.page.seoTitle,
+          seoMetaDescription: data.page.searchDescription,
+          seoOgDescription: data.page.searchDescription,
+        }}
+      />
+    );
+  }
+
+  return <h1>Component {componentName} not found</h1>;
+}
+
+export async function getStaticPaths() {
+  const apolloClient = initializeApollo();
+
+  const { data } = await apolloClient.query({
+    query: ALL_PAGES_QUERY,
+  });
+  return {
+    paths: [
+      {
+        params: {
+          path: data.pages.map(({ urlPath }) => urlPath),
         },
-    });
-
-    if (loading) {
-        return <>loading</>;
-    }
-
-    if (data?.page?.pageType) {
-        const Component = dynamic(
-            () => import(`containers/${data.page.pageType}`)
-        );
-        /**
-         * FIXME: The seo props below is mainly used to provide backward compatibility with
-         * Wagtail-Pipit.
-         *
-         * Dropping default Wagtail-Pipit support would require renaming the props used in
-         * containers/BasePage/BasePage.tsx.
-         */
-        return (
-            <Component
-                {...data.page}
-                seo={{
-                    seoHtmlTitle: data.page.seoTitle,
-                    seoMetaDescription: data.page.searchDescription,
-                    seoOgDescription: data.page.searchDescription,
-                }}
-            />
-        );
-    }
-
-    return <h1>Component {componentName} not found</h1>;
+      },
+    ],
+    fallback: true,
+  };
 }
 
-export async function getServerSideProps({ req, params, res }) {
-    const path = params?.path.join('/') || '/';
-    return { props: { path } };
+export async function getStaticProps({ params }) {
+  const path = params?.path.join("/") || "/";
 
-    // TODO: Reuse or remove code below
-    const { host } = req.headers;
-    let queryParams = new URL(req.url, `https://${host}`).search;
-    if (queryParams.indexOf('?') === 0) {
-        queryParams = queryParams.substr(1);
-    }
-    const parsedQueryParams = querystring.parse(queryParams);
+  const apolloClient = initializeApollo();
+
+  const props = await apolloClient.query({
+    query: PAGE_QUERY,
+    variables: {
+      urlPath: path,
+    },
+  });
+
+  return {
+    ...addApolloState(apolloClient, {
+      props,
+    }),
+    revalidate: 1,
+  };
 }
-
-// For SSG
-/*
-export async function getStaticProps({ params, preview, previewData }) {
-params = params || {};
-let path = params.path || [];
-path = path.join("/");
-
-const pageData = await getPage(path);
-return { props: pageData }
-}
-
-export async function getStaticPaths() {
-const data = await getAllPages();
-
-let htmlUrls = data.items.map(x => x.relativeUrl);
-htmlUrls = htmlUrls.filter(x => x);
-htmlUrls = htmlUrls.map(x => x.split("/"));
-htmlUrls = htmlUrls.map(x => x.filter(y => y))
-htmlUrls = htmlUrls.filter(x => x.length)
-
-const paths = htmlUrls.map(x => (
-{ params: { path: x } }
-));
-
-return {
-paths: paths,
-fallback: false,
-};
-}
-*/
-
-// For SSG
-/*
-export async function getStaticProps({ params, preview, previewData }) {
-params = params || {};
-let path = params.path || [];
-path = path.join("/");
-
-const pageData = await getPage(path);
-return { props: pageData }
-}
-
-export async function getStaticPaths() {
-const data = await getAllPages();
-
-let htmlUrls = data.items.map(x => x.relativeUrl);
-htmlUrls = htmlUrls.filter(x => x);
-htmlUrls = htmlUrls.map(x => x.split("/"));
-htmlUrls = htmlUrls.map(x => x.filter(y => y))
-htmlUrls = htmlUrls.filter(x => x.length)
-
-const paths = htmlUrls.map(x => (
-{ params: { path: x } }
-));
-
-return {
-paths: paths,
-fallback: false,
-};
-}
-*/
